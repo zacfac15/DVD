@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany</groupId>
-    <artifactId>Exa_009_DVDVerwaltung</artifactId>
+    <artifactId>Exa_009_DVD_Server</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Exa_009_DVDVerwaltung</name>
+    <name>Exa_009_DVD_Server</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
