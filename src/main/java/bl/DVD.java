@@ -2,25 +2,29 @@ package bl;
 
 public class DVD
 {
-  private String name;
+  private String title;
   private int sn;
   private double price;
 
-  public DVD(String name, int sn, double price)
+  public DVD()
   {
-    this.name = name;
+  }
+  
+  public DVD(String title, int sn, double price)
+  {
+    this.title = title;
     this.sn = sn;
     this.price = price;
   }
 
-  public String getName()
+  public String getTitle()
   {
-    return name;
+    return title;
   }
 
-  public void setName(String name)
+  public void setTitle(String title)
   {
-    this.name = name;
+    this.title = title;
   }
 
   public int getSn()
@@ -46,7 +50,7 @@ public class DVD
   @Override
   public String toString()
   {
-    return "DVD{" + "name=" + name + ", sn=" + sn + ", price=" + price + '}';
+    return "DVD{" + "name=" + title + ", sn=" + sn + ", price=" + price + '}';
   }
   
   
