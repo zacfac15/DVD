@@ -128,6 +128,25 @@ public class DVDResource
               .entity("not ok").build();
     }
   }
+  
+  @DELETE
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Path("{id}")
+  public Response deleteInventory(@PathParam("id") int id)
+  {
+    try
+    {
+      manager.deleteInventory(id);
+
+      return Response.status(Response.Status.OK).entity("ok").build();
+    } catch (Exception e)
+    {
+      e.printStackTrace();
+      return Response.status(Response.Status.EXPECTATION_FAILED)
+              .entity("not ok").build();
+    }
+  }
 
   @PUT
   @Produces(MediaType.APPLICATION_JSON)

@@ -111,7 +111,7 @@ public class DB_Access
       inventorylist.add(new Inventories(getDVDInventory(i)));
       i++;
     }
-    
+
     System.out.println(inventorylist.toString());
 
     return inventorylist;
@@ -148,6 +148,29 @@ public class DB_Access
     }
   }
 
+  public void deleteInventory(int id) throws SQLException
+  {
+    String sqlString2 = "DELETE FROM dvd WHERE invid = ?";
+
+    try (PreparedStatement prepStmt = conn.prepareStatement(sqlString2);)
+    {
+      System.out.println(sqlString2);
+      prepStmt.setInt(1, id);
+
+      prepStmt.execute();
+    }
+
+    String sqlString = "DELETE FROM inventory WHERE id = ?";
+
+    try (PreparedStatement prepStmt = conn.prepareStatement(sqlString);)
+    {
+      System.out.println(sqlString);
+      prepStmt.setInt(1, id);
+
+      prepStmt.execute();
+    }
+  }
+
   public static void main(String[] args)
   {
     DB_Access acc = DB_Access.getInstance();
@@ -160,7 +183,7 @@ public class DB_Access
 //        System.out.println(dvd.toString());
 //      }
 //      acc.insertDVD(3, new DVD("Hobbit",403,12.99));
-      acc.getInventories();
+      acc.deleteInventory(3);
     } catch (SQLException ex)
     {
       Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);

@@ -46,6 +46,11 @@ public class DVDManager
     acc.deleteDVD(sn, id);
   }
   
+  public void deleteInventory(int id) throws SQLException
+  {
+    acc.deleteInventory(id);
+  }
+  
   public void changeDVD(DVD d,int inventoryID, int sn)
   {
     for (DVD dvd : list)
