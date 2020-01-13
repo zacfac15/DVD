@@ -133,6 +133,21 @@ public class DB_Access
       prepStmt.execute();
     }
   }
+  
+  public void insertInventory(int id, String genre) throws SQLException
+  {
+    String sqlString = "INSERT INTO inventory (id, genre)\n"
+            + " VALUES (?,?)";
+
+    try (PreparedStatement prepStmt = conn.prepareStatement(sqlString);)
+    {
+      System.out.println(sqlString);
+      prepStmt.setInt(1, id);
+      prepStmt.setString(2,genre);
+      
+      prepStmt.execute();
+    }
+  }
 
   public void deleteDVD(int sn, int id) throws SQLException
   {
@@ -183,7 +198,7 @@ public class DB_Access
 //        System.out.println(dvd.toString());
 //      }
 //      acc.insertDVD(3, new DVD("Hobbit",403,12.99));
-      acc.deleteInventory(3);
+      acc.deleteInventory(4);
     } catch (SQLException ex)
     {
       Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,6 +25,11 @@ public class DVDManager
   {
     acc.insertDVD(id, dvd);
   }
+  
+  public void addInventory(int id, String genre) throws SQLException
+  {
+    acc.insertInventory(id, genre);
+  }
 
   public ArrayList<Inventory> getInventory(int index) throws SQLException
   {

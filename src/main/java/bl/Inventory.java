@@ -19,6 +19,13 @@ public class Inventory
     this.dvdlist = dvdlist;
   }
 
+  public Inventory(int id, String genre)
+  {
+    this.id = id;
+    this.genre = genre;
+  }
+  
+
   public int getId()
   {
     return id;

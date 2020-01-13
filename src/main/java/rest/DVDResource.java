@@ -65,6 +65,24 @@ public class DVDResource
             .build();
   }
 
+  @POST
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("")
+  public Response addInventory(Inventory content)
+  {
+    try
+    {
+      manager.addInventory(content.getId(),content.getGenre());
+    } catch (SQLException ex)
+    {
+      Logger.getLogger(DVDResource.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return Response.status(200)
+            .entity(content)
+            .build();
+  }
+  
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("{id}/dvds")
