@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +22,10 @@ public class DB_Access
   private static DB_Access instance;
   private Connection conn = database.getConn();
 
+  /**
+   * singleton, makes sure that there is only one instance of the class
+   * @return a instance of the class
+   */
   public static DB_Access getInstance()
   {
     if (instance == null)
@@ -32,6 +35,12 @@ public class DB_Access
     return instance;
   }
 
+  /**
+   * method the get a inventory from the database
+   * @param id of the inventory
+   * @return a list of dvds
+   * @throws SQLException exception which is thrown by the database
+   */
   public ArrayList<Inventory> getDVDInventory(int id) throws SQLException
   {
     ArrayList<Inventory> inventorylist = new ArrayList<>();
@@ -54,6 +63,12 @@ public class DB_Access
     return inventorylist;
   }
 
+  /**
+   * method to get dvds from an inventory
+   * @param id of inventory
+   * @return list of dvds
+   * @throws SQLException exception which is thrown by the database
+   */
   public ArrayList<DVD> getDVDsFromInventory(int id) throws SQLException
   {
     ArrayList<DVD> dvdList = new ArrayList<>();
@@ -77,6 +92,13 @@ public class DB_Access
     return dvdList;
   }
 
+  /**
+   * method to get a singek dvd
+   * @param sn of the dvd
+   * @param id of the inventory
+   * @return dvd
+   * @throws SQLException exception which is thrown by the database
+   */
   public ArrayList<DVD> getDVD(int sn, int id) throws SQLException
   {
     ArrayList<DVD> dvdList = new ArrayList<>();
@@ -101,6 +123,11 @@ public class DB_Access
     return dvdList;
   }
 
+  /**
+   * method to get all inventories
+   * @return a list of inventories
+   * @throws SQLException exception which is thrown by the database
+   */
   public ArrayList<Inventories> getInventories() throws SQLException
   {
     ArrayList<Inventories> inventorylist = new ArrayList<>();
@@ -117,6 +144,12 @@ public class DB_Access
     return inventorylist;
   }
 
+  /**
+   * method to add a dvd
+   * @param id of the inventory
+   * @param dvd object to add into the database
+   * @throws SQLException exception which is thrown by the database
+   */
   public void insertDVD(int id, DVD dvd) throws SQLException
   {
     String sqlString = "INSERT INTO DVD (sn,title,price, invid)\n"
@@ -134,6 +167,12 @@ public class DB_Access
     }
   }
 
+  /**
+   * method to add an inventory to the database
+   * @param id of the inventory
+   * @param genre of the inventory
+   * @throws SQLException exception which is thrown by the database
+   */
   public void insertInventory(int id, String genre) throws SQLException
   {
     String sqlString = "INSERT INTO inventory (id, genre)\n"
@@ -149,6 +188,12 @@ public class DB_Access
     }
   }
 
+  /**
+   * method to delete a dvd
+   * @param sn of the dvd
+   * @param id of the inventory
+   * @throws SQLException exception which is thrown by the database
+   */
   public void deleteDVD(int sn, int id) throws SQLException
   {
     String sqlString = "DELETE FROM dvd WHERE sn = ? AND invid = ?";
@@ -163,6 +208,11 @@ public class DB_Access
     }
   }
 
+  /**
+   * method to delete an inventory
+   * @param id of the inventory
+   * @throws SQLException exception which is thrown by the database
+   */
   public void deleteInventory(int id) throws SQLException
   {
     String sqlString2 = "DELETE FROM dvd WHERE invid = ?";
