@@ -116,6 +116,20 @@ public class DB_Access
       prepStmt.execute();
     }
   }
+  
+  public void deleteDVD(int sn, int id) throws SQLException
+  {
+    String sqlString = "DELETE FROM dvd WHERE sn = ? AND invid = ?";
+
+    try (PreparedStatement prepStmt = conn.prepareStatement(sqlString);)
+    {
+      System.out.println(sqlString);
+      prepStmt.setInt(1, sn);
+      prepStmt.setInt(2, id);
+
+      prepStmt.execute();
+    }
+  }
 
   public static void main(String[] args)
   {
@@ -128,7 +142,8 @@ public class DB_Access
 //      {
 //        System.out.println(dvd.toString());
 //      }
-      acc.insertDVD(3, new DVD("Hobbit",403,12.99));
+//      acc.insertDVD(3, new DVD("Hobbit",403,12.99));
+      acc.deleteDVD(301,2);
     } catch (SQLException ex)
     {
       Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);

@@ -58,7 +58,7 @@ public class DVDResource
     {
       Logger.getLogger(DVDResource.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
+
     return Response.status(200)
             .entity(content)
             .build();
@@ -95,19 +95,21 @@ public class DVDResource
   }
 
   @DELETE
-  @Produces(MediaType.APPLICATION_XML)
+  @Produces(MediaType.APPLICATION_JSON)
+  @Consumes(MediaType.APPLICATION_JSON)
   @Path("{id}/dvds/{sn}")
-  public Response deleteCar(@PathParam("id") int id)
+  public Response deleteDVD(@PathParam("id") int id, @PathParam("sn") int sn)
   {
     try
     {
-      manager.delete(id);
+      manager.deleteDVD(id, sn);
+
       return Response.status(Response.Status.OK).entity("ok").build();
     } catch (Exception e)
     {
       e.printStackTrace();
       return Response.status(Response.Status.EXPECTATION_FAILED)
-              .entity("not ok, very not ok").build();
+              .entity("not ok").build();
     }
   }
 

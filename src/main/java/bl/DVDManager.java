@@ -36,9 +36,9 @@ public class DVDManager
     return acc.getDVD(sn, id);
   }
 
-  public void delete(int index)
+  public void deleteDVD(int id, int sn) throws SQLException
   {
-    list.remove(index);
+    acc.deleteDVD(sn, id);
   }
   
   public void changeDVD(DVD d,int inventoryID, int sn)
