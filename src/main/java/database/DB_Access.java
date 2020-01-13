@@ -106,11 +106,11 @@ public class DB_Access
     ArrayList<Inventories> inventorylist = new ArrayList<>();
     int i = 1;
 
-    while (i < 4)
+    do
     {
       inventorylist.add(new Inventories(getDVDInventory(i)));
       i++;
-    }
+    } while (!getDVDInventory(i).isEmpty());
 
     System.out.println(inventorylist.toString());
 
@@ -133,7 +133,7 @@ public class DB_Access
       prepStmt.execute();
     }
   }
-  
+
   public void insertInventory(int id, String genre) throws SQLException
   {
     String sqlString = "INSERT INTO inventory (id, genre)\n"
@@ -143,8 +143,8 @@ public class DB_Access
     {
       System.out.println(sqlString);
       prepStmt.setInt(1, id);
-      prepStmt.setString(2,genre);
-      
+      prepStmt.setString(2, genre);
+
       prepStmt.execute();
     }
   }
@@ -198,7 +198,7 @@ public class DB_Access
 //        System.out.println(dvd.toString());
 //      }
 //      acc.insertDVD(3, new DVD("Hobbit",403,12.99));
-      acc.deleteInventory(4);
+      acc.getInventories();
     } catch (SQLException ex)
     {
       Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);
