@@ -57,7 +57,7 @@ public class DVDResource
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   @Path("{id}/dvds")
-  public ArrayList<DVD> getDVDsFromInventory(@PathParam("id") int id)
+  public ArrayList<Inventory> getDVDsFromInventory(@PathParam("id") int id)
   {
     try
     {
@@ -76,7 +76,7 @@ public class DVDResource
   {
     try
     {
-      return manager.getDVD(sn);
+      return manager.getDVD(sn, id);
     } catch (SQLException ex)
     {
       Logger.getLogger(DVDResource.class.getName()).log(Level.SEVERE, null, ex);

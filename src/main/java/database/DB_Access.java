@@ -1,6 +1,7 @@
 package database;
 
 import bl.DVD;
+import bl.Inventory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,51 +31,89 @@ public class DB_Access
     return instance;
   }
 
-  public ArrayList<DVD> getDVDInventory(int id) throws SQLException
+  public ArrayList<Inventory> getDVDInventory(int id) throws SQLException
   {
-    ArrayList<DVD> inventorylist = new ArrayList<>();
-    String sql = "SELECT d.sn, d.title, d.price "
-            + "FROM dvd d INNER JOIN dvdinventory di ON d.sn = di.sn "
-            + "           INNER JOIN inventory i ON di.inventoryid = i.id "
-            + "WHERE i.id = ?";
+    ArrayList<Inventory> inventorylist = new ArrayList<>();
+    String sql = "SELECT id, genre\n"
+            + "FROM inventory\n"
+            + "WHERE id = ?";
 
     try (PreparedStatement prepStmt = conn.prepareStatement(sql);)
     {
-      System.out.println(sql);
       prepStmt.setInt(1, id);
 
       ResultSet rs = prepStmt.executeQuery();
 
       while (rs.next())
       {
-        inventorylist.add(new DVD(rs.getString("title"), rs.getInt("sn"), rs.getDouble("price")));
+        inventorylist.add(new Inventory(rs.getInt("id"), rs.getString("genre"), getDVDsFromInventory(id)));
       }
     }
 
     return inventorylist;
   }
 
-  public ArrayList<DVD> getDVD(int sn) throws SQLException
+  public ArrayList<DVD> getDVDsFromInventory(int id) throws SQLException
   {
     ArrayList<DVD> dvdList = new ArrayList<>();
-    String sql = "SELECT sn, title, price\n"
+
+    String sql = "SELECT sn,title,price\n"
             + "FROM dvd\n"
-            + "WHERE sn = ?";
+            + "WHERE invid = ?";
 
     try (PreparedStatement prepStmt = conn.prepareStatement(sql);)
     {
-      System.out.println(sql);
-      prepStmt.setInt(1, sn);
+      prepStmt.setInt(1, id);
 
       ResultSet rs = prepStmt.executeQuery();
 
       while (rs.next())
       {
-        dvdList.add(new DVD(rs.getString("title"), rs.getInt("sn"), rs.getDouble("price")));
+        dvdList.add(new DVD(rs.getString("title"),rs.getInt("sn"),rs.getDouble("price")));
       }
-    }
 
+    }
     return dvdList;
+  }
+  
+  public ArrayList<DVD> getDVD(int sn, int id) throws SQLException
+  {
+    ArrayList<DVD> dvdList = new ArrayList<>();
+
+    String sql = "SELECT sn,title,price\n"
+            + "FROM dvd\n"
+            + "WHERE invid = ? AND sn = ?";
+
+    try (PreparedStatement prepStmt = conn.prepareStatement(sql);)
+    {
+      prepStmt.setInt(1, id);
+      prepStmt.setInt(2, sn);
+
+      ResultSet rs = prepStmt.executeQuery();
+
+      while (rs.next())
+      {
+        dvdList.add(new DVD(rs.getString("title"),rs.getInt("sn"),rs.getDouble("price")));
+      }
+
+    }
+    return dvdList;
+  }
+
+  public void insertDVD(int index, DVD dvd) throws SQLException
+  {
+    String sqlString = "INSERT INTO DVD (sn,title,price)\n"
+            + " VALUES (?,?,?)";
+
+    try (PreparedStatement prepStmt = conn.prepareStatement(sqlString);)
+    {
+      System.out.println(sqlString);
+      prepStmt.setInt(1, dvd.getSn());
+      prepStmt.setString(2, dvd.getTitle());
+      prepStmt.setDouble(3, dvd.getPrice());
+
+      prepStmt.execute(sqlString);
+    }
   }
 
   public static void main(String[] args)
@@ -83,13 +122,8 @@ public class DB_Access
 
     try
     {
-      ArrayList<DVD> inventorylist = acc.getDVDInventory(1);
-      ArrayList<DVD> dvdList = acc.getDVD(300);
-      for (DVD dvd : inventorylist)
-      {
-//        System.out.println(dvd.toString());
-      }
-      for (DVD dvd : dvdList)
+      ArrayList<Inventory> inventorylist = acc.getDVDInventory(1);
+      for (Inventory dvd : inventorylist)
       {
         System.out.println(dvd.toString());
       }
@@ -98,4 +132,5 @@ public class DB_Access
       Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
+
 }

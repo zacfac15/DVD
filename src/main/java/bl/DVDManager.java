@@ -26,14 +26,14 @@ public class DVDManager
     list.add(dvd);
   }
 
-  public ArrayList<DVD> getInventory(int index) throws SQLException
+  public ArrayList<Inventory> getInventory(int index) throws SQLException
   {
     return acc.getDVDInventory(index);
   }
   
-  public ArrayList<DVD> getDVD(int sn) throws SQLException
+  public ArrayList<DVD> getDVD(int sn, int id) throws SQLException
   {
-    return acc.getDVD(sn);
+    return acc.getDVD(sn, id);
   }
 
   public void delete(int index)

@@ -1,20 +1,22 @@
 package bl;
 
+import java.util.ArrayList;
+
 public class Inventory
 {
   private int id;
-  private int sn;
   private String genre;
+  private ArrayList<DVD> dvdlist;
 
   public Inventory()
   {
   }
 
-  public Inventory(int id, int sn, String genre)
+  public Inventory(int id, String genre, ArrayList<DVD> dvdlist)
   {
     this.id = id;
-    this.sn = sn;
     this.genre = genre;
+    this.dvdlist = dvdlist;
   }
 
   public int getId()
@@ -27,16 +29,6 @@ public class Inventory
     this.id = id;
   }
 
-  public int getSn()
-  {
-    return sn;
-  }
-
-  public void setSn(int sn)
-  {
-    this.sn = sn;
-  }
-
   public String getGenre()
   {
     return genre;
@@ -46,6 +38,22 @@ public class Inventory
   {
     this.genre = genre;
   }
-  
+
+  public ArrayList<DVD> getDvdlist()
+  {
+    return dvdlist;
+  }
+
+  public void setDvdlist(ArrayList<DVD> dvdlist)
+  {
+    this.dvdlist = dvdlist;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "Inventory{" + "id=" + id + ", genre=" + genre + ", dvdlist=" + dvdlist + '}';
+  }
+
   
 }
