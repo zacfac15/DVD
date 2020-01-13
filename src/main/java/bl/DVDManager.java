@@ -21,9 +21,9 @@ public class DVDManager
     return instance;
   }
 
-  public void addDVDtoInventory(DVD dvd, int id)
+  public void addDVDtoInventory(DVD dvd, int id) throws SQLException
   {
-    list.add(dvd);
+    acc.insertDVD(id, dvd);
   }
 
   public ArrayList<Inventory> getInventory(int index) throws SQLException

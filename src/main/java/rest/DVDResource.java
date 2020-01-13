@@ -49,9 +49,19 @@ public class DVDResource
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Path("{id}/dvds")
-  public void addDVDsFromInventory(@PathParam("id") int id, DVD content)
+  public Response addDVDsFromInventory(@PathParam("id") int id, DVD content)
   {
-    manager.addDVDtoInventory(content, id);
+    try
+    {
+      manager.addDVDtoInventory(content, id);
+    } catch (SQLException ex)
+    {
+      Logger.getLogger(DVDResource.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    return Response.status(200)
+            .entity(content)
+            .build();
   }
 
   @GET

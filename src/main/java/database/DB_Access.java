@@ -100,10 +100,10 @@ public class DB_Access
     return dvdList;
   }
 
-  public void insertDVD(int index, DVD dvd) throws SQLException
+  public void insertDVD(int id, DVD dvd) throws SQLException
   {
-    String sqlString = "INSERT INTO DVD (sn,title,price)\n"
-            + " VALUES (?,?,?)";
+    String sqlString = "INSERT INTO DVD (sn,title,price, invid)\n"
+            + " VALUES (?,?,?,?)";
 
     try (PreparedStatement prepStmt = conn.prepareStatement(sqlString);)
     {
@@ -111,8 +111,9 @@ public class DB_Access
       prepStmt.setInt(1, dvd.getSn());
       prepStmt.setString(2, dvd.getTitle());
       prepStmt.setDouble(3, dvd.getPrice());
+      prepStmt.setInt(4, id);
 
-      prepStmt.execute(sqlString);
+      prepStmt.execute();
     }
   }
 
@@ -122,11 +123,12 @@ public class DB_Access
 
     try
     {
-      ArrayList<Inventory> inventorylist = acc.getDVDInventory(1);
-      for (Inventory dvd : inventorylist)
-      {
-        System.out.println(dvd.toString());
-      }
+//      ArrayList<Inventory> inventorylist = acc.getDVDInventory(1);
+//      for (Inventory dvd : inventorylist)
+//      {
+//        System.out.println(dvd.toString());
+//      }
+      acc.insertDVD(3, new DVD("Hobbit",403,12.99));
     } catch (SQLException ex)
     {
       Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);
