@@ -35,6 +35,11 @@ public class DVDManager
   {
     return acc.getDVD(sn, id);
   }
+  
+  public ArrayList<Inventories> getInventories() throws SQLException
+  {
+    return acc.getInventories();
+  }
 
   public void deleteDVD(int id, int sn) throws SQLException
   {

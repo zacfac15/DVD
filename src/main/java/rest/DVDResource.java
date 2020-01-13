@@ -2,6 +2,7 @@ package rest;
 
 import bl.DVD;
 import bl.DVDManager;
+import bl.Inventories;
 import bl.Inventory;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -87,6 +88,21 @@ public class DVDResource
     try
     {
       return manager.getDVD(sn, id);
+    } catch (SQLException ex)
+    {
+      Logger.getLogger(DVDResource.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
+  }
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("")
+  public ArrayList<Inventories> getInventories()
+  {
+    try
+    {
+      return manager.getInventories();
     } catch (SQLException ex)
     {
       Logger.getLogger(DVDResource.class.getName()).log(Level.SEVERE, null, ex);

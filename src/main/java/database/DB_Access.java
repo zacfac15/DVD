@@ -1,6 +1,7 @@
 package database;
 
 import bl.DVD;
+import bl.Inventories;
 import bl.Inventory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -69,13 +70,13 @@ public class DB_Access
 
       while (rs.next())
       {
-        dvdList.add(new DVD(rs.getString("title"),rs.getInt("sn"),rs.getDouble("price")));
+        dvdList.add(new DVD(rs.getString("title"), rs.getInt("sn"), rs.getDouble("price")));
       }
 
     }
     return dvdList;
   }
-  
+
   public ArrayList<DVD> getDVD(int sn, int id) throws SQLException
   {
     ArrayList<DVD> dvdList = new ArrayList<>();
@@ -93,11 +94,27 @@ public class DB_Access
 
       while (rs.next())
       {
-        dvdList.add(new DVD(rs.getString("title"),rs.getInt("sn"),rs.getDouble("price")));
+        dvdList.add(new DVD(rs.getString("title"), rs.getInt("sn"), rs.getDouble("price")));
       }
 
     }
     return dvdList;
+  }
+
+  public ArrayList<Inventories> getInventories() throws SQLException
+  {
+    ArrayList<Inventories> inventorylist = new ArrayList<>();
+    int i = 1;
+
+    while (i < 4)
+    {
+      inventorylist.add(new Inventories(getDVDInventory(i)));
+      i++;
+    }
+    
+    System.out.println(inventorylist.toString());
+
+    return inventorylist;
   }
 
   public void insertDVD(int id, DVD dvd) throws SQLException
@@ -116,7 +133,7 @@ public class DB_Access
       prepStmt.execute();
     }
   }
-  
+
   public void deleteDVD(int sn, int id) throws SQLException
   {
     String sqlString = "DELETE FROM dvd WHERE sn = ? AND invid = ?";
@@ -143,7 +160,7 @@ public class DB_Access
 //        System.out.println(dvd.toString());
 //      }
 //      acc.insertDVD(3, new DVD("Hobbit",403,12.99));
-      acc.deleteDVD(301,2);
+      acc.getInventories();
     } catch (SQLException ex)
     {
       Logger.getLogger(DB_Access.class.getName()).log(Level.SEVERE, null, ex);
